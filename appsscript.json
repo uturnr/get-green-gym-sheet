@@ -1,0 +1,6 @@
+{
+  "timeZone": "Pacific/Galapagos",
+  "dependencies": {
+  },
+  "exceptionLogging": "STACKDRIVER"
+}

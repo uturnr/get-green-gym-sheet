@@ -1,0 +1,15 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "googleappsscript/googleappsscript": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": "eslint:recommended",
+  "plugins": [
+    "googleappsscript"
+  ],
+  "rules": {
+    "no-console": "off"
+  }
+}
