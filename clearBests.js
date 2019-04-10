@@ -1,23 +1,23 @@
-var bestsSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Bests'); //eslint-disable-line no-undef
+var gymSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Get Green'); //eslint-disable-line no-undef
 
-module.exports = function rebuildBests(row) { //eslint-disable-line no-unused-vars
+module.exports = function clearBests(row) { //eslint-disable-line no-unused-vars
 
   let startRow;
   let rowsToClear;
-  const lastColumn = bestsSheet.getLastColumn();
+  const lastColumn = gymSheet.getLastColumn();
   const colsToClear = lastColumn - 1;
 
   if (row) { //clear row
     rowsToClear = 1;
     startRow = row;
   } else { // clear all
-    const lastRow = bestsSheet.getLastRow();
+    const lastRow = gymSheet.getLastRow();
     rowsToClear = lastRow - 3;
     startRow = 3;
   }
 
 
-  const bestsRange = bestsSheet.getRange(startRow, 2, rowsToClear, colsToClear);
-  bestsRange.clearContent();
+  const bestsRange = gymSheet.getRange(startRow, 2, rowsToClear, colsToClear);
+  bestsRange.setBackground(null);
 
 }
