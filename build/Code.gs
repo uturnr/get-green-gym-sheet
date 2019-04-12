@@ -170,8 +170,11 @@ function getRepColorAndBest(todayWeight, bestWeight, todayReps, bestReps) {
   var color;
   var best = bestReps;
 
-  if (todayReps === '') {
+  if (todayWeight <= bestWeight && todayReps === '') {
     color = colors.background;
+  } else if (todayWeight > bestWeight && todayReps === '') {
+    color = colors.background;
+    best = todayReps;
   } else if (todayWeight > bestWeight || todayWeight === 0 && bestWeight === '' || todayWeight === bestWeight && todayReps > bestReps) {
     color = colors.bestReps;
     best = todayReps;
