@@ -1,6 +1,6 @@
-var gymSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Get Green'); //eslint-disable-line no-undef
+const gymSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Get Green'); //eslint-disable-line no-undef
 
-module.exports = function clearBests(row) { //eslint-disable-line no-unused-vars
+const clearBests = row => { //eslint-disable-line no-unused-vars
 
   let startRow;
   let rowsToClear;
@@ -21,3 +21,5 @@ module.exports = function clearBests(row) { //eslint-disable-line no-unused-vars
   bestsRange.setBackground(null);
 
 }
+
+export default clearBests;

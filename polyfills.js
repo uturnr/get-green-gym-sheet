@@ -1,4 +1,5 @@
-module.exports = function polyfills() {
+const polyfills = () => {
+  // for chroma js
   if (!Array.prototype.includes) {
     Object.defineProperty(Array.prototype, 'includes', {
       value: function(searchElement, fromIndex) {
@@ -50,3 +51,5 @@ module.exports = function polyfills() {
     });
   }
 }
+
+export default polyfills;

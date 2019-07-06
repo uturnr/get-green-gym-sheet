@@ -1,6 +1,6 @@
-var recolor = require('./recolor');
+import recolor from './recolor';
 
-module.exports = function onChangeFunc(e) { //eslint-disable-line no-unused-vars
+const onChangeFunc = e => {
 
   // handle deletions, ranges, row inserts
 
@@ -18,5 +18,6 @@ module.exports = function onChangeFunc(e) { //eslint-disable-line no-unused-vars
 
   }
 
-
 }
+
+export default onChangeFunc;

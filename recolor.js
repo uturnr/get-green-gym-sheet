@@ -1,12 +1,12 @@
-var polyfills = require('./polyfills');
-var chroma = require('chroma-js');
+import polyfills from './polyfills';
+import chroma from 'chroma-js';
+import clearBests from './clearBests';
 
 polyfills();
 
-var gymSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Get Green'); //eslint-disable-line no-undef
-var clearBests = require('./clearBests');
+const gymSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Get Green'); //eslint-disable-line no-undef
 
-var colors = {
+const colors = {
   bestWeight: '#70e69c',
   bestReps: '#a1efb9',
   same: null,
@@ -14,7 +14,9 @@ var colors = {
   fail: '#ff99a2',
 }
 
-function getWeightColorAndBest(todayWeight, bestWeight) {
+
+
+const getWeightColorAndBest = (todayWeight, bestWeight) => {
 
   var color;
   var best = bestWeight;
@@ -35,7 +37,7 @@ function getWeightColorAndBest(todayWeight, bestWeight) {
 
 }
 
-function getRepColorAndBest(todayWeight, bestWeight, todayReps, bestReps) {
+const getRepColorAndBest = (todayWeight, bestWeight, todayReps, bestReps) => {
 
   var color;
   var best = bestReps;
@@ -77,7 +79,7 @@ function getRepColorAndBest(todayWeight, bestWeight, todayReps, bestReps) {
 
 }
 
-module.exports = function recolor(row) { //eslint-disable-line no-unused-vars
+const recolor = row => { //eslint-disable-line no-unused-vars
 
   // row for 1 row, if empty, all rows
   if (!row) {
@@ -171,3 +173,5 @@ module.exports = function recolor(row) { //eslint-disable-line no-unused-vars
   newBestsRange.setBackgrounds(newColors);
 
 }
+
+export default recolor;

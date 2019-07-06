@@ -91,51 +91,83 @@ function recolor() {
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-var gymSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Get Green'); //eslint-disable-line no-undef
+"use strict";
 
-module.exports = function clearBests(row) {
-  //eslint-disable-line no-unused-vars
-  var startRow;
-  var rowsToClear;
-  var lastColumn = gymSheet.getLastColumn();
-  var colsToClear = lastColumn - 1;
+// CONCATENATED MODULE: ./polyfills.js
+var polyfills = function polyfills() {
+  // for chroma js
+  if (!Array.prototype.includes) {
+    Object.defineProperty(Array.prototype, 'includes', {
+      value: function value(searchElement, fromIndex) {
+        if (this == null) {
+          throw new TypeError('"this" is null or not defined');
+        } // 1. Let O be ? ToObject(this value).
 
-  if (row) {
-    //clear row
-    rowsToClear = 1;
-    startRow = row;
-  } else {
-    // clear all
-    var lastRow = gymSheet.getLastRow();
-    rowsToClear = lastRow - 3;
-    startRow = 3;
+
+        var o = Object(this); // 2. Let len be ? ToLength(? Get(O, "length")).
+
+        var len = o.length >>> 0; // 3. If len is 0, return false.
+
+        if (len === 0) {
+          return false;
+        } // 4. Let n be ? ToInteger(fromIndex).
+        //    (If fromIndex is undefined, this step produces the value 0.)
+
+
+        var n = fromIndex | 0; // 5. If n ≥ 0, then
+        //  a. Let k be n.
+        // 6. Else n < 0,
+        //  a. Let k be len + n.
+        //  b. If k < 0, let k be 0.
+
+        var k = Math.max(n >= 0 ? n : len - Math.abs(n), 0);
+
+        function sameValueZero(x, y) {
+          return x === y || typeof x === 'number' && typeof y === 'number' && isNaN(x) && isNaN(y);
+        } // 7. Repeat, while k < len
+
+
+        while (k < len) {
+          // a. Let elementK be the result of ? Get(O, ! ToString(k)).
+          // b. If SameValueZero(searchElement, elementK) is true, return true.
+          if (sameValueZero(o[k], searchElement)) {
+            return true;
+          } // c. Increase k by 1. 
+
+
+          k++;
+        } // 8. Return false
+
+
+        return false;
+      }
+    });
   }
-
-  var bestsRange = gymSheet.getRange(startRow, 2, rowsToClear, colsToClear);
-  bestsRange.setBackground(null);
 };
 
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
+/* harmony default export */ var polyfills_0 = (polyfills);
+// EXTERNAL MODULE: ./node_modules/chroma-js/chroma.js
+var chroma = __webpack_require__(3);
+var chroma_default = /*#__PURE__*/__webpack_require__.n(chroma);
 
+// EXTERNAL MODULE: ./clearBests.js
+var clearBests = __webpack_require__(1);
+
+// CONCATENATED MODULE: ./recolor.js
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-var polyfills = __webpack_require__(5);
 
-var chroma = __webpack_require__(6);
 
-polyfills();
+
+polyfills_0();
 var gymSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Get Green'); //eslint-disable-line no-undef
-
-var clearBests = __webpack_require__(0);
 
 var colors = {
   bestWeight: '#70e69c',
@@ -145,7 +177,7 @@ var colors = {
   fail: '#ff99a2'
 };
 
-function getWeightColorAndBest(todayWeight, bestWeight) {
+var getWeightColorAndBest = function getWeightColorAndBest(todayWeight, bestWeight) {
   var color;
   var best = bestWeight;
 
@@ -164,9 +196,9 @@ function getWeightColorAndBest(todayWeight, bestWeight) {
     color: color,
     best: best
   };
-}
+};
 
-function getRepColorAndBest(todayWeight, bestWeight, todayReps, bestReps) {
+var recolor_getRepColorAndBest = function getRepColorAndBest(todayWeight, bestWeight, todayReps, bestReps) {
   var color;
   var best = bestReps;
 
@@ -182,20 +214,20 @@ function getRepColorAndBest(todayWeight, bestWeight, todayReps, bestReps) {
     color = colors.same;
   } else {
     var failScale = Math.min((bestReps - todayReps) / bestReps * 2, 1);
-    color = chroma.mix('white', colors.fail, failScale, 'lch').hex();
+    color = chroma_default.a.mix('white', colors.fail, failScale, 'lch').hex();
   }
 
   return {
     color: color,
     best: best
   };
-}
+};
 
-module.exports = function recolor(row) {
+var recolor_recolor = function recolor(row) {
   //eslint-disable-line no-unused-vars
   // row for 1 row, if empty, all rows
   if (!row) {
-    clearBests();
+    Object(clearBests["a" /* default */])();
   }
 
   var startRow;
@@ -254,7 +286,7 @@ module.exports = function recolor(row) {
           );
         } else {
           // set
-          colorAndBest = getRepColorAndBest(gymValues[rowI][colI - set], // todayWeight
+          colorAndBest = recolor_getRepColorAndBest(gymValues[rowI][colI - set], // todayWeight
           bestValues[rowI][colI - 4 - set], // bestWeight
           cellVal, // todayReps
           bestValues[rowI][colI - 4] // bestReps
@@ -271,128 +303,65 @@ module.exports = function recolor(row) {
   newBestsRange.setBackgrounds(newColors);
 };
 
+/* harmony default export */ var recolor_0 = __webpack_exports__["a"] = (recolor_recolor);
+
+/***/ }),
+/* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var gymSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Get Green'); //eslint-disable-line no-undef
+
+var clearBests = function clearBests(row) {
+  //eslint-disable-line no-unused-vars
+  var startRow;
+  var rowsToClear;
+  var lastColumn = gymSheet.getLastColumn();
+  var colsToClear = lastColumn - 1;
+
+  if (row) {
+    //clear row
+    rowsToClear = 1;
+    startRow = row;
+  } else {
+    // clear all
+    var lastRow = gymSheet.getLastRow();
+    rowsToClear = lastRow - 3;
+    startRow = 3;
+  }
+
+  var bestsRange = gymSheet.getRange(startRow, 2, rowsToClear, colsToClear);
+  bestsRange.setBackground(null);
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (clearBests);
+
 /***/ }),
 /* 2 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {var clearBests = __webpack_require__(0);
-
-var onChangeFunc = __webpack_require__(4);
-
-var onInstall = __webpack_require__(7);
-
-var recolor = __webpack_require__(1);
-/**
- * Return write arguments.
- */
+"use strict";
+/* harmony import */ var _recolor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 
 
-global.clearBests = clearBests;
-global.onChangeFunc = onChangeFunc;
-global.onInstall = onInstall;
-global.recolor = recolor;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3)))
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports) {
-
-var g; // This works in non-strict mode
-
-g = function () {
-  return this;
-}();
-
-try {
-  // This works if eval is allowed (see CSP)
-  g = g || new Function("return this")();
-} catch (e) {
-  // This works if the window reference is available
-  if (typeof window === "object") g = window;
-} // g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-
-module.exports = g;
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var recolor = __webpack_require__(1);
-
-module.exports = function onChangeFunc(e) {
-  //eslint-disable-line no-unused-vars
+var onChangeFunc = function onChangeFunc(e) {
   // handle deletions, ranges, row inserts
   var activeSheet = e.source.getActiveSheet();
 
   if (activeSheet.getName() === 'Get Green') {
     if (e.changeType === 'EDIT') {
       var gymCell = e.source.getActiveCell();
-      recolor(gymCell.getRow());
+      Object(_recolor__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(gymCell.getRow());
     } else if (e.changeType !== 'FORMAT' && e.changeType !== 'OTHER') {
-      recolor();
+      Object(_recolor__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])();
     }
   }
 };
 
-/***/ }),
-/* 5 */
-/***/ (function(module, exports) {
-
-module.exports = function polyfills() {
-  if (!Array.prototype.includes) {
-    Object.defineProperty(Array.prototype, 'includes', {
-      value: function value(searchElement, fromIndex) {
-        if (this == null) {
-          throw new TypeError('"this" is null or not defined');
-        } // 1. Let O be ? ToObject(this value).
-
-
-        var o = Object(this); // 2. Let len be ? ToLength(? Get(O, "length")).
-
-        var len = o.length >>> 0; // 3. If len is 0, return false.
-
-        if (len === 0) {
-          return false;
-        } // 4. Let n be ? ToInteger(fromIndex).
-        //    (If fromIndex is undefined, this step produces the value 0.)
-
-
-        var n = fromIndex | 0; // 5. If n ≥ 0, then
-        //  a. Let k be n.
-        // 6. Else n < 0,
-        //  a. Let k be len + n.
-        //  b. If k < 0, let k be 0.
-
-        var k = Math.max(n >= 0 ? n : len - Math.abs(n), 0);
-
-        function sameValueZero(x, y) {
-          return x === y || typeof x === 'number' && typeof y === 'number' && isNaN(x) && isNaN(y);
-        } // 7. Repeat, while k < len
-
-
-        while (k < len) {
-          // a. Let elementK be the result of ? Get(O, ! ToString(k)).
-          // b. If SameValueZero(searchElement, elementK) is true, return true.
-          if (sameValueZero(o[k], searchElement)) {
-            return true;
-          } // c. Increase k by 1. 
-
-
-          k++;
-        } // 8. Return false
-
-
-        return false;
-      }
-    });
-  }
-};
+/* harmony default export */ __webpack_exports__["a"] = (onChangeFunc);
 
 /***/ }),
-/* 6 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -3980,14 +3949,64 @@ module.exports = function polyfills() {
 });
 
 /***/ }),
-/* 7 */
-/***/ (function(module, exports) {
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = function onInstall() {
+"use strict";
+var onInstall = function onInstall() {
   //eslint-disable-line no-unused-vars
   var ss = SpreadsheetApp.getActive();
   ScriptApp.newTrigger('onChangeFunc').forSpreadsheet(ss).onChange().create();
 };
+
+/* harmony default export */ __webpack_exports__["a"] = (onInstall);
+
+/***/ }),
+/* 5 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var _clearBests__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var _onChangeFunc__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
+/* harmony import */ var _onInstall__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
+/* harmony import */ var _recolor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(0);
+
+
+
+
+/**
+ * Return write arguments.
+ */
+
+global.clearBests = _clearBests__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"];
+global.onChangeFunc = _onChangeFunc__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"];
+global.onInstall = _onInstall__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"];
+global.recolor = _recolor__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"];
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(6)))
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+var g; // This works in non-strict mode
+
+g = function () {
+  return this;
+}();
+
+try {
+  // This works if eval is allowed (see CSP)
+  g = g || new Function("return this")();
+} catch (e) {
+  // This works if the window reference is available
+  if (typeof window === "object") g = window;
+} // g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+
+module.exports = g;
 
 /***/ })
 /******/ ]);

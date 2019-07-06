@@ -1,7 +1,8 @@
-var clearBests = require('./clearBests');
-var onChangeFunc = require('./onChangeFunc');
-var onInstall = require('./onInstall');
-var recolor = require('./recolor');
+import clearBests from './clearBests';
+import onChangeFunc from './onChangeFunc';
+import onInstall from './onInstall';
+import recolor from './recolor';
+
 /**
  * Return write arguments.
  */
