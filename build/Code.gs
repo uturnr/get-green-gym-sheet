@@ -91,7 +91,7 @@ function rebuild() {
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -100,58 +100,79 @@ function rebuild() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var firstColoredRow = 1; // 1
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "colsPerDay", function() { return colsPerDay; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "firstColoredCol", function() { return firstColoredCol; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "firstEntryCol", function() { return firstEntryCol; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "firstWeightCol", function() { return firstWeightCol; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "nonEntryCols", function() { return nonEntryCols; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "uncoloredCols", function() { return uncoloredCols; });
+/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+ // Col and row numbers are 1-indexed.
 
-var firstEntryRow = 3; // 3
+var optionsSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Options');
+var setsPerDayFromSheet = optionsSheet.getRange(3, 2).getValue(); // Col Counts - Commented numbers based on 2 sets per day.
 
-var firstWeightRow = firstEntryRow; // 3
+var setsPerDay = setsPerDayFromSheet ? setsPerDayFromSheet : 2;
+var colsPerDay = setsPerDay + 1; // 3
 
-var colsInADay = 4; // 4
+var bestStorageCols = colsPerDay; // 3
 
-var firstWeightCol = 2; // 2
+var baselineCols = colsPerDay; // 3
 
-var firstBestsCol = firstWeightCol;
-var firstEntryCol = firstWeightCol + colsInADay; // 6
+var nonEntryCols = _constants_js__WEBPACK_IMPORTED_MODULE_0__["headerCols"] + bestStorageCols; // 6
 
-var firstColoredCol = firstWeightCol + 2 * colsInADay; // 10
+var uncoloredCols = _constants_js__WEBPACK_IMPORTED_MODULE_0__["headerCols"] + bestStorageCols + baselineCols; // 9
+// Col Numbers
 
-var nonEntryRows = firstEntryRow - 1; // 2
+var firstWeightCol = _constants_js__WEBPACK_IMPORTED_MODULE_0__["headerCols"] + 1; // 2
 
-var uncoloredRows = firstColoredRow - 1; // 0
+var firstEntryCol = nonEntryCols + 1; // 7
 
-var uncoloredCols = firstColoredCol - 1; // 9
+var firstColoredCol = uncoloredCols + 1; // 10
 
-var nonEntryCols = firstEntryCol - 1; // 5
 
-var nonNumberCols = firstWeightCol - 1; // 1
-
-var k = {
-  firstColoredRow: firstColoredRow,
-  firstEntryRow: firstEntryRow,
-  firstWeightRow: firstWeightRow,
-  colsInADay: colsInADay,
-  firstWeightCol: firstWeightCol,
-  firstBestsCol: firstBestsCol,
-  firstEntryCol: firstEntryCol,
-  firstColoredCol: firstColoredCol,
-  nonEntryRows: nonEntryRows,
-  uncoloredRows: uncoloredRows,
-  uncoloredCols: uncoloredCols,
-  nonEntryCols: nonEntryCols,
-  nonNumberCols: nonNumberCols
-};
-/* harmony default export */ __webpack_exports__["default"] = (k);
 
 /***/ }),
 /* 1 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "firstBestsCol", function() { return firstBestsCol; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "firstColoredRow", function() { return firstColoredRow; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "firstEntryRow", function() { return firstEntryRow; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "firstWeightCol", function() { return firstWeightCol; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "firstWeightRow", function() { return firstWeightRow; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "headerCols", function() { return headerCols; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "nonEntryRows", function() { return nonEntryRows; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "uncoloredRows", function() { return uncoloredRows; });
+// Col and row numbers are 1-indexed.
+// Row Counts
+var nonEntryRows = 2;
+var uncoloredRows = 0; // Row Numbers
+
+var firstColoredRow = uncoloredRows + 1; // 1
+
+var firstEntryRow = nonEntryRows + 1; // 3
+
+var firstWeightRow = firstEntryRow; // 3
+// Col Counts
+
+var headerCols = 3; // Col Numbers
+
+var firstWeightCol = headerCols + 1; // 4
+
+var firstBestsCol = firstWeightCol; // 4
+
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, "updateSingleCell", function() { return /* binding */ updateSingleCell; });
 
 // CONCATENATED MODULE: ./polyfills.js
 var polyfills = function polyfills() {
@@ -207,14 +228,17 @@ var polyfills = function polyfills() {
 
 /* harmony default export */ var polyfills_0 = (polyfills);
 // EXTERNAL MODULE: ./node_modules/chroma-js/chroma.js
-var chroma = __webpack_require__(4);
+var chroma = __webpack_require__(5);
 var chroma_default = /*#__PURE__*/__webpack_require__.n(chroma);
 
 // EXTERNAL MODULE: ./clearBests.js
-var clearBests = __webpack_require__(2);
+var clearBests = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./constants.js
-var constants = __webpack_require__(0);
+var constants = __webpack_require__(1);
+
+// EXTERNAL MODULE: ./variables.js
+var variables = __webpack_require__(0);
 
 // CONCATENATED MODULE: ./rebuild.js
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -223,9 +247,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 
 
-polyfills_0();
-var gymSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Get Green'); //eslint-disable-line no-undef
 
+polyfills_0();
+var gymSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Get Green');
 var colors = {
   bestWeight: '#70e69c',
   bestReps: '#a1efb9',
@@ -280,13 +304,8 @@ var rebuild_getRepColorAndBest = function getRepColorAndBest(todayWeight, bestWe
   };
 };
 
-var updateBestNumbers = function updateBestNumbers() {};
-
-var updateSingleCell = function updateSingleCell(cell) {};
-
 var rebuild_rebuild = function rebuild(row) {
-  //eslint-disable-line no-unused-vars
-  // row for 1 row, if empty, all rows
+  // If row is not passed, rebuild all rows.
   if (!row) {
     Object(clearBests["default"])();
   }
@@ -294,18 +313,18 @@ var rebuild_rebuild = function rebuild(row) {
   var startRow;
   var rowsToRebuild;
   var lastColumn = gymSheet.getLastColumn();
-  var colsWithEntries = lastColumn - constants["default"].nonEntryCols;
+  var colsWithEntries = lastColumn - variables["nonEntryCols"];
 
   if (row) {
     rowsToRebuild = 1;
     startRow = row;
   } else {
     rowsToRebuild = gymSheet.getLastRow();
-    startRow = constants["default"].firstColoredRow;
+    startRow = constants["firstColoredRow"];
   }
 
-  var bestsRange = gymSheet.getRange(startRow, constants["default"].firstBestsCol, rowsToRebuild, constants["default"].colsInADay);
-  var entriesRange = gymSheet.getRange(startRow, constants["default"].firstEntryCol, rowsToRebuild, colsWithEntries);
+  var bestsRange = gymSheet.getRange(startRow, constants["firstBestsCol"], rowsToRebuild, variables["colsPerDay"]);
+  var entriesRange = gymSheet.getRange(startRow, variables["firstEntryCol"], rowsToRebuild, colsWithEntries);
   var entriesValues = entriesRange.getValues();
   var bestValuesByDay = [];
   var newColors = [];
@@ -320,7 +339,6 @@ var rebuild_rebuild = function rebuild(row) {
   */
 
   entriesValues.forEach(function (rowArray, rowI) {
-    // if (rowI === 0) { // while testing
     newColors.push([]); // new empty row
 
     bestValuesByDay.push([]); // new empty row
@@ -332,9 +350,9 @@ var rebuild_rebuild = function rebuild(row) {
     }
 
     rowArray.forEach(function (cellVal, colI) {
-      var set = colI % 4; // remember colI starts at 0 not 1
+      var set = colI % variables["colsPerDay"]; // remember colI starts at 0 not 1
 
-      if (rowType === 'info' || colI <= constants["default"].colsInADay - 1) {
+      if (rowType === 'info' || colI <= variables["colsPerDay"] - 1) {
         // do not color info cells or cells from first day
         var plainColor = cellVal === '' ? colors.background : colors.same;
         newColors[rowI].push(plainColor);
@@ -346,14 +364,14 @@ var rebuild_rebuild = function rebuild(row) {
         if (set === 0) {
           // weight
           colorAndBest = getWeightColorAndBest(cellVal, // todayWeight
-          bestValuesByDay[rowI][colI - 4] // bestWeight
+          bestValuesByDay[rowI][colI - variables["colsPerDay"]] // bestWeight
           );
         } else {
           // set
           colorAndBest = rebuild_getRepColorAndBest(entriesValues[rowI][colI - set], // todayWeight
-          bestValuesByDay[rowI][colI - 4 - set], // bestWeight
+          bestValuesByDay[rowI][colI - variables["colsPerDay"] - set], // bestWeight
           cellVal, // todayReps
-          bestValuesByDay[rowI][colI - 4] // bestReps
+          bestValuesByDay[rowI][colI - variables["colsPerDay"]] // bestReps
           );
         }
 
@@ -361,13 +379,12 @@ var rebuild_rebuild = function rebuild(row) {
         bestValuesByDay[rowI].push(colorAndBest.best);
       }
     });
-    var last4Bests = bestValuesByDay[rowI].slice(-4);
+    var lastBests = bestValuesByDay[rowI].slice(-variables["colsPerDay"]);
 
-    if (last4Bests.length === 4) {
-      finalBestValues.push(last4Bests);
+    if (lastBests.length === variables["colsPerDay"]) {
+      finalBestValues.push(lastBests);
     }
-  }); // const newBestsRange = bestsSheet.getRange(3, 2, 1, lastColumn - 1); // while testing
-
+  });
   entriesRange.setBackgrounds(newColors);
   bestsRange.setValues(finalBestValues);
 };
@@ -375,24 +392,26 @@ var rebuild_rebuild = function rebuild(row) {
 /* harmony default export */ var rebuild_0 = __webpack_exports__["default"] = (rebuild_rebuild);
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var _variables__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(0);
+
 
 var gymSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Get Green'); //eslint-disable-line no-undef
 
 var clearColors = function clearColors(startRow, rowsToClear) {
   var lastColumn = gymSheet.getLastColumn();
-  var colsToClear = lastColumn - _constants__WEBPACK_IMPORTED_MODULE_0__["default"].uncoloredCols;
-  var colorRange = gymSheet.getRange(startRow, _constants__WEBPACK_IMPORTED_MODULE_0__["default"].firstColoredCol, rowsToClear, colsToClear);
+  var colsToClear = lastColumn - _variables__WEBPACK_IMPORTED_MODULE_1__["uncoloredCols"];
+  var colorRange = gymSheet.getRange(startRow, _variables__WEBPACK_IMPORTED_MODULE_1__["firstColoredCol"], rowsToClear, colsToClear);
   colorRange.setBackground(null);
 };
 
 var clearBestNumbers = function clearBestNumbers(startRow, rowsToClear) {
-  var bestNumberRange = gymSheet.getRange(startRow, _constants__WEBPACK_IMPORTED_MODULE_0__["default"].firstWeightCol, rowsToClear, _constants__WEBPACK_IMPORTED_MODULE_0__["default"].colsInADay);
+  var bestNumberRange = gymSheet.getRange(startRow, _variables__WEBPACK_IMPORTED_MODULE_1__["firstWeightCol"], rowsToClear, _variables__WEBPACK_IMPORTED_MODULE_1__["colsPerDay"]);
   bestNumberRange.clear();
 };
 
@@ -410,8 +429,8 @@ var clearBests = function clearBests(row) {
     // clear all
     var lastRow = gymSheet.getLastRow();
     rowsToClear = lastRow;
-    numberStartRow = _constants__WEBPACK_IMPORTED_MODULE_0__["default"].firstEntryRow;
-    colorStartRow = _constants__WEBPACK_IMPORTED_MODULE_0__["default"].firstColoredRow;
+    numberStartRow = _constants__WEBPACK_IMPORTED_MODULE_0__["firstEntryRow"];
+    colorStartRow = _constants__WEBPACK_IMPORTED_MODULE_0__["firstColoredRow"];
   }
 
   clearColors(colorStartRow, rowsToClear);
@@ -421,12 +440,12 @@ var clearBests = function clearBests(row) {
 /* harmony default export */ __webpack_exports__["default"] = (clearBests);
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _rebuild__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var _rebuild__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 
 
 var onChangeFunc = function onChangeFunc(e) {
@@ -438,20 +457,13 @@ var onChangeFunc = function onChangeFunc(e) {
       var gymCell = e.source.getActiveCell();
       var lastColInSheet = activeSheet.getLastColumn();
       var editedCellRow = gymCell.getRow();
-      var editedCellCol = gymCell.getColumn();
       var editedCellRowVals = activeSheet.getRange(editedCellRow, 1, 1, lastColInSheet).getValues()[0];
       var valsCount = editedCellRowVals.length; // Loop over backwards to find col of first cell with value.
       // (Starts at 1 not 0)
 
       for (var i = valsCount - 1; i >= 1; i--) {
         if (editedCellRowVals[i]) {
-          var col = i + 1;
-          Object(_rebuild__WEBPACK_IMPORTED_MODULE_0__["default"])(editedCellRow); // if (editedCellCol === col) {
-          //   updateSingleCell(gymCell);
-          // } else {
-          //   rebuild(editedCellRow);
-          // }
-
+          Object(_rebuild__WEBPACK_IMPORTED_MODULE_0__["default"])(editedCellRow);
           break;
         }
       }
@@ -464,7 +476,7 @@ var onChangeFunc = function onChangeFunc(e) {
 /* harmony default export */ __webpack_exports__["default"] = (onChangeFunc);
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -4113,7 +4125,7 @@ var onChangeFunc = function onChangeFunc(e) {
 });
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4141,15 +4153,15 @@ var onInstall = function onInstall() {
 /* harmony default export */ __webpack_exports__["default"] = (onInstall);
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var _clearBests__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var _onChangeFunc__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
-/* harmony import */ var _onInstall__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
-/* harmony import */ var _rebuild__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(1);
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var _clearBests__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+/* harmony import */ var _onChangeFunc__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
+/* harmony import */ var _onInstall__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6);
+/* harmony import */ var _rebuild__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(2);
 
 
 
@@ -4162,10 +4174,10 @@ global.clearBests = _clearBests__WEBPACK_IMPORTED_MODULE_0__["default"];
 global.onChangeFunc = _onChangeFunc__WEBPACK_IMPORTED_MODULE_1__["default"];
 global.onInstall = _onInstall__WEBPACK_IMPORTED_MODULE_2__["default"];
 global.rebuild = _rebuild__WEBPACK_IMPORTED_MODULE_3__["default"];
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(7)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(8)))
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var g; // This works in non-strict mode
