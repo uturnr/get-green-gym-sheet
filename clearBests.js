@@ -1,24 +1,42 @@
+import k from './constants';
+
 const gymSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Get Green'); //eslint-disable-line no-undef
+
+const clearColors = (startRow, rowsToClear) => {
+  
+  const lastColumn = gymSheet.getLastColumn();
+  const colsToClear = lastColumn - k.uncoloredCols;
+  
+  const colorRange = gymSheet.getRange(startRow, k.firstColoredCol, rowsToClear, colsToClear);
+  colorRange.setBackground(null);
+
+}
+
+const clearBestNumbers = (startRow, rowsToClear) => {
+  
+  const bestNumberRange = gymSheet.getRange(startRow, k.firstWeightCol, rowsToClear, k.colsInADay);
+  bestNumberRange.clear();
+  
+}
 
 const clearBests = row => { //eslint-disable-line no-unused-vars
 
-  let startRow;
+  let numberStartRow;
+  let colorStartRow;
   let rowsToClear;
-  const lastColumn = gymSheet.getLastColumn();
-  const colsToClear = lastColumn - 1;
 
   if (row) { //clear row
     rowsToClear = 1;
-    startRow = row;
+    numberStartRow, colorStartRow = row;
   } else { // clear all
     const lastRow = gymSheet.getLastRow();
-    rowsToClear = lastRow - 3;
-    startRow = 3;
+    rowsToClear = lastRow;
+    numberStartRow = k.firstEntryRow;
+    colorStartRow = k.firstColoredRow;
   }
-
-
-  const bestsRange = gymSheet.getRange(startRow, 2, rowsToClear, colsToClear);
-  bestsRange.setBackground(null);
+  
+  clearColors(colorStartRow, rowsToClear);
+  clearBestNumbers(numberStartRow, rowsToClear);
 
 }
 

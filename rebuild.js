@@ -1,6 +1,7 @@
 import polyfills from './polyfills';
 import chroma from 'chroma-js';
 import clearBests from './clearBests';
+import k from './constants';
 
 polyfills();
 
@@ -79,7 +80,15 @@ const getRepColorAndBest = (todayWeight, bestWeight, todayReps, bestReps) => {
 
 }
 
-const recolor = row => { //eslint-disable-line no-unused-vars
+const updateBestNumbers = () => {
+  
+}
+
+export const updateSingleCell = cell => {
+  
+}
+
+const rebuild = row => { //eslint-disable-line no-unused-vars
 
   // row for 1 row, if empty, all rows
   if (!row) {
@@ -89,35 +98,36 @@ const recolor = row => { //eslint-disable-line no-unused-vars
   let startRow;
   let rowsToRebuild;
   const lastColumn = gymSheet.getLastColumn();
-  const colsToRebuild = lastColumn - 1;
+  const colsWithEntries = lastColumn - k.nonEntryCols;
 
   if (row) {
     rowsToRebuild = 1;
     startRow = row;
   } else {
     rowsToRebuild = gymSheet.getLastRow();
-    startRow = 1;
+    startRow = k.firstColoredRow;
   }
 
-
-  const gymRange = gymSheet.getRange(startRow, 2, rowsToRebuild, colsToRebuild);
-  const gymValues = gymRange.getValues();
-  const bestValues = [];
+  const bestsRange = gymSheet.getRange(startRow, k.firstBestsCol, rowsToRebuild, k.colsInADay)
+  const entriesRange = gymSheet.getRange(startRow, k.firstEntryCol, rowsToRebuild, colsWithEntries);
+  const entriesValues = entriesRange.getValues();
+  const bestValuesByDay = [];
   const newColors = [];
+  const finalBestValues = [];
   /*
     gymValues is an array of arrays
     [
       [cell,cell,cell],
       [cell,cell,cell],
     ]
-    newColors and bestValues will follow the same shape
+    newColors and bestValuesByDay and finalBestValues will follow the same shape
   */
-  gymValues.forEach((rowArray, rowI) => {
+  entriesValues.forEach((rowArray, rowI) => {
 
     // if (rowI === 0) { // while testing
 
     newColors.push([]); // new empty row
-    bestValues.push([]); // new empty row
+    bestValuesByDay.push([]); // new empty row
     
     let rowType = 'data';
     if (
@@ -131,47 +141,57 @@ const recolor = row => { //eslint-disable-line no-unused-vars
       rowType = 'info';
     }
     
+  
     rowArray.forEach((cellVal, colI) => {
-      // do not color info cells or cells from first day
-      if (rowType === 'info' || colI < 4) {
+      
+      const set = colI % 4; // remember colI starts at 0 not 1
+      
+      if (rowType === 'info' || colI <= k.colsInADay - 1) {
+        // do not color info cells or cells from first day
+        
         let plainColor = (
           cellVal === ''
           ? colors.background
           : colors.same
         );
         newColors[rowI].push(plainColor);
-        bestValues[rowI].push(cellVal);
-      } else {        
-        const set = colI % 4; // remember colI starts at 0 not 1
+        bestValuesByDay[rowI].push(cellVal);
+      } else {
+        // update colors and best numbers
         
         let colorAndBest;
 
         if (set === 0) { // weight
           colorAndBest = getWeightColorAndBest(
             cellVal, // todayWeight
-            bestValues[rowI][colI - 4] // bestWeight
+            bestValuesByDay[rowI][colI - 4] // bestWeight
           );
         } else { // set
           colorAndBest = getRepColorAndBest(
-            gymValues[rowI][colI - set], // todayWeight
-            bestValues[rowI][colI - 4 - set], // bestWeight
+            entriesValues[rowI][colI - set], // todayWeight
+            bestValuesByDay[rowI][colI - 4 - set], // bestWeight
             cellVal, // todayReps
-            bestValues[rowI][colI - 4] // bestReps
+            bestValuesByDay[rowI][colI - 4] // bestReps
           );
         }
         
         newColors[rowI].push(colorAndBest.color);
-        bestValues[rowI].push(colorAndBest.best);
+        bestValuesByDay[rowI].push(colorAndBest.best);
       }
+      
     });
-
+    
+    const last4Bests = bestValuesByDay[rowI].slice(-4);
+    if (last4Bests.length === 4) {
+      finalBestValues.push(last4Bests);
+    }
 
   });
 
-  const newBestsRange = gymSheet.getRange(startRow, 2, rowsToRebuild, colsToRebuild);
   // const newBestsRange = bestsSheet.getRange(3, 2, 1, lastColumn - 1); // while testing
-  newBestsRange.setBackgrounds(newColors);
+  entriesRange.setBackgrounds(newColors);
+  bestsRange.setValues(finalBestValues);
 
 }
 
-export default recolor;
+export default rebuild;
