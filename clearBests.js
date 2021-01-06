@@ -1,20 +1,21 @@
-import k from './constants';
+import { firstColoredRow, firstEntryRow } from './constants';
+import { colsPerDay, firstColoredCol, firstWeightCol, uncoloredCols } from './variables';
 
 const gymSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Get Green'); //eslint-disable-line no-undef
 
 const clearColors = (startRow, rowsToClear) => {
   
   const lastColumn = gymSheet.getLastColumn();
-  const colsToClear = lastColumn - k.uncoloredCols;
+  const colsToClear = lastColumn - uncoloredCols;
   
-  const colorRange = gymSheet.getRange(startRow, k.firstColoredCol, rowsToClear, colsToClear);
+  const colorRange = gymSheet.getRange(startRow, firstColoredCol, rowsToClear, colsToClear);
   colorRange.setBackground(null);
 
 }
 
 const clearBestNumbers = (startRow, rowsToClear) => {
   
-  const bestNumberRange = gymSheet.getRange(startRow, k.firstWeightCol, rowsToClear, k.colsInADay);
+  const bestNumberRange = gymSheet.getRange(startRow, firstWeightCol, rowsToClear, colsPerDay);
   bestNumberRange.clear();
   
 }
@@ -31,8 +32,8 @@ const clearBests = row => { //eslint-disable-line no-unused-vars
   } else { // clear all
     const lastRow = gymSheet.getLastRow();
     rowsToClear = lastRow;
-    numberStartRow = k.firstEntryRow;
-    colorStartRow = k.firstColoredRow;
+    numberStartRow = firstEntryRow;
+    colorStartRow = firstColoredRow;
   }
   
   clearColors(colorStartRow, rowsToClear);

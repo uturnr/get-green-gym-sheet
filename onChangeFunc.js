@@ -1,4 +1,4 @@
-import rebuild, { updateSingleCell } from './rebuild';
+import rebuild from './rebuild';
 
 const onChangeFunc = e => {
 
@@ -10,7 +10,6 @@ const onChangeFunc = e => {
       const gymCell = e.source.getActiveCell();
       const lastColInSheet = activeSheet.getLastColumn();
       const editedCellRow = gymCell.getRow();
-      const editedCellCol = gymCell.getColumn();
       const editedCellRowVals = activeSheet.getRange(
         editedCellRow,
         1,
@@ -22,13 +21,7 @@ const onChangeFunc = e => {
       // (Starts at 1 not 0)
       for (let i = valsCount - 1; i >= 1; i--) {
         if (editedCellRowVals[i]) {
-          const col = i + 1;
           rebuild(editedCellRow);
-          // if (editedCellCol === col) {
-          //   updateSingleCell(gymCell);
-          // } else {
-          //   rebuild(editedCellRow);
-          // }
           break;
         }
       }
