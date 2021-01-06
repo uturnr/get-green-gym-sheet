@@ -99,6 +99,7 @@ function rebuild() {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
 var firstColoredRow = 1; // 1
 
 var firstEntryRow = 3; // 3
@@ -139,13 +140,18 @@ var k = {
   nonEntryCols: nonEntryCols,
   nonNumberCols: nonNumberCols
 };
-/* harmony default export */ __webpack_exports__["a"] = (k);
+/* harmony default export */ __webpack_exports__["default"] = (k);
 
 /***/ }),
 /* 1 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "updateSingleCell", function() { return /* binding */ updateSingleCell; });
 
 // CONCATENATED MODULE: ./polyfills.js
 var polyfills = function polyfills() {
@@ -211,8 +217,7 @@ var clearBests = __webpack_require__(2);
 var constants = __webpack_require__(0);
 
 // CONCATENATED MODULE: ./rebuild.js
-/* unused harmony export updateSingleCell */
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 
 
@@ -283,24 +288,24 @@ var rebuild_rebuild = function rebuild(row) {
   //eslint-disable-line no-unused-vars
   // row for 1 row, if empty, all rows
   if (!row) {
-    Object(clearBests["a" /* default */])();
+    Object(clearBests["default"])();
   }
 
   var startRow;
   var rowsToRebuild;
   var lastColumn = gymSheet.getLastColumn();
-  var colsWithEntries = lastColumn - constants["a" /* default */].nonEntryCols;
+  var colsWithEntries = lastColumn - constants["default"].nonEntryCols;
 
   if (row) {
     rowsToRebuild = 1;
     startRow = row;
   } else {
     rowsToRebuild = gymSheet.getLastRow();
-    startRow = constants["a" /* default */].firstColoredRow;
+    startRow = constants["default"].firstColoredRow;
   }
 
-  var bestsRange = gymSheet.getRange(startRow, constants["a" /* default */].firstBestsCol, rowsToRebuild, constants["a" /* default */].colsInADay);
-  var entriesRange = gymSheet.getRange(startRow, constants["a" /* default */].firstEntryCol, rowsToRebuild, colsWithEntries);
+  var bestsRange = gymSheet.getRange(startRow, constants["default"].firstBestsCol, rowsToRebuild, constants["default"].colsInADay);
+  var entriesRange = gymSheet.getRange(startRow, constants["default"].firstEntryCol, rowsToRebuild, colsWithEntries);
   var entriesValues = entriesRange.getValues();
   var bestValuesByDay = [];
   var newColors = [];
@@ -329,7 +334,7 @@ var rebuild_rebuild = function rebuild(row) {
     rowArray.forEach(function (cellVal, colI) {
       var set = colI % 4; // remember colI starts at 0 not 1
 
-      if (rowType === 'info' || colI <= constants["a" /* default */].colsInADay - 1) {
+      if (rowType === 'info' || colI <= constants["default"].colsInADay - 1) {
         // do not color info cells or cells from first day
         var plainColor = cellVal === '' ? colors.background : colors.same;
         newColors[rowI].push(plainColor);
@@ -367,26 +372,27 @@ var rebuild_rebuild = function rebuild(row) {
   bestsRange.setValues(finalBestValues);
 };
 
-/* harmony default export */ var rebuild_0 = __webpack_exports__["a"] = (rebuild_rebuild);
+/* harmony default export */ var rebuild_0 = __webpack_exports__["default"] = (rebuild_rebuild);
 
 /***/ }),
 /* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 
 var gymSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Get Green'); //eslint-disable-line no-undef
 
 var clearColors = function clearColors(startRow, rowsToClear) {
   var lastColumn = gymSheet.getLastColumn();
-  var colsToClear = lastColumn - _constants__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].uncoloredCols;
-  var colorRange = gymSheet.getRange(startRow, _constants__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].firstColoredCol, rowsToClear, colsToClear);
+  var colsToClear = lastColumn - _constants__WEBPACK_IMPORTED_MODULE_0__["default"].uncoloredCols;
+  var colorRange = gymSheet.getRange(startRow, _constants__WEBPACK_IMPORTED_MODULE_0__["default"].firstColoredCol, rowsToClear, colsToClear);
   colorRange.setBackground(null);
 };
 
 var clearBestNumbers = function clearBestNumbers(startRow, rowsToClear) {
-  var bestNumberRange = gymSheet.getRange(startRow, _constants__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].firstWeightCol, rowsToClear, _constants__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].colsInADay);
+  var bestNumberRange = gymSheet.getRange(startRow, _constants__WEBPACK_IMPORTED_MODULE_0__["default"].firstWeightCol, rowsToClear, _constants__WEBPACK_IMPORTED_MODULE_0__["default"].colsInADay);
   bestNumberRange.clear();
 };
 
@@ -404,21 +410,22 @@ var clearBests = function clearBests(row) {
     // clear all
     var lastRow = gymSheet.getLastRow();
     rowsToClear = lastRow;
-    numberStartRow = _constants__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].firstEntryRow;
-    colorStartRow = _constants__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].firstColoredRow;
+    numberStartRow = _constants__WEBPACK_IMPORTED_MODULE_0__["default"].firstEntryRow;
+    colorStartRow = _constants__WEBPACK_IMPORTED_MODULE_0__["default"].firstColoredRow;
   }
 
   clearColors(colorStartRow, rowsToClear);
   clearBestNumbers(numberStartRow, rowsToClear);
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (clearBests);
+/* harmony default export */ __webpack_exports__["default"] = (clearBests);
 
 /***/ }),
 /* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _rebuild__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 
 
@@ -439,7 +446,7 @@ var onChangeFunc = function onChangeFunc(e) {
       for (var i = valsCount - 1; i >= 1; i--) {
         if (editedCellRowVals[i]) {
           var col = i + 1;
-          Object(_rebuild__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(editedCellRow); // if (editedCellCol === col) {
+          Object(_rebuild__WEBPACK_IMPORTED_MODULE_0__["default"])(editedCellRow); // if (editedCellCol === col) {
           //   updateSingleCell(gymCell);
           // } else {
           //   rebuild(editedCellRow);
@@ -449,12 +456,12 @@ var onChangeFunc = function onChangeFunc(e) {
         }
       }
     } else if (e.changeType !== 'FORMAT' && e.changeType !== 'OTHER') {
-      Object(_rebuild__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])();
+      Object(_rebuild__WEBPACK_IMPORTED_MODULE_0__["default"])();
     }
   }
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (onChangeFunc);
+/* harmony default export */ __webpack_exports__["default"] = (onChangeFunc);
 
 /***/ }),
 /* 4 */
@@ -463,7 +470,7 @@ var onChangeFunc = function onChangeFunc(e) {
 /**
  * chroma.js - JavaScript library for color conversions
  *
- * Copyright (c) 2011-2018, Gregor Aisch
+ * Copyright (c) 2011-2019, Gregor Aisch
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -686,7 +693,7 @@ var onChangeFunc = function onChangeFunc(e) {
   };
 
   chroma.Color = Color_1;
-  chroma.version = '2.0.3';
+  chroma.version = '2.1.0';
   var chroma_1 = chroma;
   var unpack$1 = utils.unpack;
   var max = Math.max;
@@ -905,51 +912,6 @@ var onChangeFunc = function onChangeFunc(e) {
   };
 
   var rgb2css_1 = rgb2css;
-  var RE_HEX = /^#?([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
-  var RE_HEXA = /^#?([A-Fa-f0-9]{8})$/;
-
-  var hex2rgb = function (hex) {
-    if (hex.match(RE_HEX)) {
-      // remove optional leading #
-      if (hex.length === 4 || hex.length === 7) {
-        hex = hex.substr(1);
-      } // expand short-notation to full six-digit
-
-
-      if (hex.length === 3) {
-        hex = hex.split('');
-        hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
-      }
-
-      var u = parseInt(hex, 16);
-      var r = u >> 16;
-      var g = u >> 8 & 0xFF;
-      var b = u & 0xFF;
-      return [r, g, b, 1];
-    } // match rgba hex format, eg #FF000077
-
-
-    if (hex.match(RE_HEXA)) {
-      if (hex.length === 9) {
-        // remove optional leading #
-        hex = hex.substr(1);
-      }
-
-      var u$1 = parseInt(hex, 16);
-      var r$1 = u$1 >> 24 & 0xFF;
-      var g$1 = u$1 >> 16 & 0xFF;
-      var b$1 = u$1 >> 8 & 0xFF;
-      var a = Math.round((u$1 & 0xFF) / 0xFF * 100) / 100;
-      return [r$1, g$1, b$1, a];
-    } // we used to check for css colors here
-    // if _input.css? and rgb = _input.css hex
-    //     return rgb
-
-
-    throw new Error("unknown hex color: " + hex);
-  };
-
-  var hex2rgb_1 = hex2rgb;
   var unpack$7 = utils.unpack;
   var round$1 = Math.round;
 
@@ -1010,169 +972,6 @@ var onChangeFunc = function onChangeFunc(e) {
   };
 
   var hsl2rgb_1 = hsl2rgb;
-  /**
-  	X11 color names
-   	http://www.w3.org/TR/css3-color/#svg-color
-  */
-
-  var w3cx11 = {
-    aliceblue: '#f0f8ff',
-    antiquewhite: '#faebd7',
-    aqua: '#00ffff',
-    aquamarine: '#7fffd4',
-    azure: '#f0ffff',
-    beige: '#f5f5dc',
-    bisque: '#ffe4c4',
-    black: '#000000',
-    blanchedalmond: '#ffebcd',
-    blue: '#0000ff',
-    blueviolet: '#8a2be2',
-    brown: '#a52a2a',
-    burlywood: '#deb887',
-    cadetblue: '#5f9ea0',
-    chartreuse: '#7fff00',
-    chocolate: '#d2691e',
-    coral: '#ff7f50',
-    cornflower: '#6495ed',
-    cornflowerblue: '#6495ed',
-    cornsilk: '#fff8dc',
-    crimson: '#dc143c',
-    cyan: '#00ffff',
-    darkblue: '#00008b',
-    darkcyan: '#008b8b',
-    darkgoldenrod: '#b8860b',
-    darkgray: '#a9a9a9',
-    darkgreen: '#006400',
-    darkgrey: '#a9a9a9',
-    darkkhaki: '#bdb76b',
-    darkmagenta: '#8b008b',
-    darkolivegreen: '#556b2f',
-    darkorange: '#ff8c00',
-    darkorchid: '#9932cc',
-    darkred: '#8b0000',
-    darksalmon: '#e9967a',
-    darkseagreen: '#8fbc8f',
-    darkslateblue: '#483d8b',
-    darkslategray: '#2f4f4f',
-    darkslategrey: '#2f4f4f',
-    darkturquoise: '#00ced1',
-    darkviolet: '#9400d3',
-    deeppink: '#ff1493',
-    deepskyblue: '#00bfff',
-    dimgray: '#696969',
-    dimgrey: '#696969',
-    dodgerblue: '#1e90ff',
-    firebrick: '#b22222',
-    floralwhite: '#fffaf0',
-    forestgreen: '#228b22',
-    fuchsia: '#ff00ff',
-    gainsboro: '#dcdcdc',
-    ghostwhite: '#f8f8ff',
-    gold: '#ffd700',
-    goldenrod: '#daa520',
-    gray: '#808080',
-    green: '#008000',
-    greenyellow: '#adff2f',
-    grey: '#808080',
-    honeydew: '#f0fff0',
-    hotpink: '#ff69b4',
-    indianred: '#cd5c5c',
-    indigo: '#4b0082',
-    ivory: '#fffff0',
-    khaki: '#f0e68c',
-    laserlemon: '#ffff54',
-    lavender: '#e6e6fa',
-    lavenderblush: '#fff0f5',
-    lawngreen: '#7cfc00',
-    lemonchiffon: '#fffacd',
-    lightblue: '#add8e6',
-    lightcoral: '#f08080',
-    lightcyan: '#e0ffff',
-    lightgoldenrod: '#fafad2',
-    lightgoldenrodyellow: '#fafad2',
-    lightgray: '#d3d3d3',
-    lightgreen: '#90ee90',
-    lightgrey: '#d3d3d3',
-    lightpink: '#ffb6c1',
-    lightsalmon: '#ffa07a',
-    lightseagreen: '#20b2aa',
-    lightskyblue: '#87cefa',
-    lightslategray: '#778899',
-    lightslategrey: '#778899',
-    lightsteelblue: '#b0c4de',
-    lightyellow: '#ffffe0',
-    lime: '#00ff00',
-    limegreen: '#32cd32',
-    linen: '#faf0e6',
-    magenta: '#ff00ff',
-    maroon: '#800000',
-    maroon2: '#7f0000',
-    maroon3: '#b03060',
-    mediumaquamarine: '#66cdaa',
-    mediumblue: '#0000cd',
-    mediumorchid: '#ba55d3',
-    mediumpurple: '#9370db',
-    mediumseagreen: '#3cb371',
-    mediumslateblue: '#7b68ee',
-    mediumspringgreen: '#00fa9a',
-    mediumturquoise: '#48d1cc',
-    mediumvioletred: '#c71585',
-    midnightblue: '#191970',
-    mintcream: '#f5fffa',
-    mistyrose: '#ffe4e1',
-    moccasin: '#ffe4b5',
-    navajowhite: '#ffdead',
-    navy: '#000080',
-    oldlace: '#fdf5e6',
-    olive: '#808000',
-    olivedrab: '#6b8e23',
-    orange: '#ffa500',
-    orangered: '#ff4500',
-    orchid: '#da70d6',
-    palegoldenrod: '#eee8aa',
-    palegreen: '#98fb98',
-    paleturquoise: '#afeeee',
-    palevioletred: '#db7093',
-    papayawhip: '#ffefd5',
-    peachpuff: '#ffdab9',
-    peru: '#cd853f',
-    pink: '#ffc0cb',
-    plum: '#dda0dd',
-    powderblue: '#b0e0e6',
-    purple: '#800080',
-    purple2: '#7f007f',
-    purple3: '#a020f0',
-    rebeccapurple: '#663399',
-    red: '#ff0000',
-    rosybrown: '#bc8f8f',
-    royalblue: '#4169e1',
-    saddlebrown: '#8b4513',
-    salmon: '#fa8072',
-    sandybrown: '#f4a460',
-    seagreen: '#2e8b57',
-    seashell: '#fff5ee',
-    sienna: '#a0522d',
-    silver: '#c0c0c0',
-    skyblue: '#87ceeb',
-    slateblue: '#6a5acd',
-    slategray: '#708090',
-    slategrey: '#708090',
-    snow: '#fffafa',
-    springgreen: '#00ff7f',
-    steelblue: '#4682b4',
-    tan: '#d2b48c',
-    teal: '#008080',
-    thistle: '#d8bfd8',
-    tomato: '#ff6347',
-    turquoise: '#40e0d0',
-    violet: '#ee82ee',
-    wheat: '#f5deb3',
-    white: '#ffffff',
-    whitesmoke: '#f5f5f5',
-    yellow: '#ffff00',
-    yellowgreen: '#9acd32'
-  };
-  var w3cx11_1 = w3cx11;
   var RE_RGB = /^rgb\(\s*(-?\d+),\s*(-?\d+)\s*,\s*(-?\d+)\s*\)$/;
   var RE_RGBA = /^rgba\(\s*(-?\d+),\s*(-?\d+)\s*,\s*(-?\d+)\s*,\s*([01]|[01]?\.\d+)\)$/;
   var RE_RGB_PCT = /^rgb\(\s*(-?\d+(?:\.\d+)?)%,\s*(-?\d+(?:\.\d+)?)%\s*,\s*(-?\d+(?:\.\d+)?)%\s*\)$/;
@@ -1182,13 +981,16 @@ var onChangeFunc = function onChangeFunc(e) {
   var round$2 = Math.round;
 
   var css2rgb = function (css) {
-    css = css.toLowerCase().trim(); // named X11 colors
+    css = css.toLowerCase().trim();
+    var m;
 
-    if (w3cx11_1[css]) {
-      return hex2rgb_1(w3cx11_1[css]);
-    }
+    if (input.format.named) {
+      try {
+        return input.format.named(css);
+      } catch (e) {// eslint-disable-next-line
+      }
+    } // rgb(250,20,0)
 
-    var m; // rgb(250,20,0)
 
     if (m = css.match(RE_RGB)) {
       var rgb = m.slice(1, 4);
@@ -1530,6 +1332,57 @@ var onChangeFunc = function onChangeFunc(e) {
   };
 
   var rgb2hex_1 = rgb2hex;
+  var RE_HEX = /^#?([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+  var RE_HEXA = /^#?([A-Fa-f0-9]{8}|[A-Fa-f0-9]{4})$/;
+
+  var hex2rgb = function (hex) {
+    if (hex.match(RE_HEX)) {
+      // remove optional leading #
+      if (hex.length === 4 || hex.length === 7) {
+        hex = hex.substr(1);
+      } // expand short-notation to full six-digit
+
+
+      if (hex.length === 3) {
+        hex = hex.split('');
+        hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+      }
+
+      var u = parseInt(hex, 16);
+      var r = u >> 16;
+      var g = u >> 8 & 0xFF;
+      var b = u & 0xFF;
+      return [r, g, b, 1];
+    } // match rgba hex format, eg #FF000077
+
+
+    if (hex.match(RE_HEXA)) {
+      if (hex.length === 5 || hex.length === 9) {
+        // remove optional leading #
+        hex = hex.substr(1);
+      } // expand short-notation to full eight-digit
+
+
+      if (hex.length === 4) {
+        hex = hex.split('');
+        hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2] + hex[3] + hex[3];
+      }
+
+      var u$1 = parseInt(hex, 16);
+      var r$1 = u$1 >> 24 & 0xFF;
+      var g$1 = u$1 >> 16 & 0xFF;
+      var b$1 = u$1 >> 8 & 0xFF;
+      var a = Math.round((u$1 & 0xFF) / 0xFF * 100) / 100;
+      return [r$1, g$1, b$1, a];
+    } // we used to check for css colors here
+    // if _input.css? and rgb = _input.css hex
+    //     return rgb
+
+
+    throw new Error("unknown hex color: " + hex);
+  };
+
+  var hex2rgb_1 = hex2rgb;
   var type$5 = utils.type;
 
   Color_1.prototype.hex = function (mode) {
@@ -1554,7 +1407,7 @@ var onChangeFunc = function onChangeFunc(e) {
 
       while (len-- > 0) rest[len] = arguments[len + 1];
 
-      if (!rest.length && type$5(h) === 'string' && [3, 4, 6, 7, 8, 9].includes(h.length)) {
+      if (!rest.length && type$5(h) === 'string' && [3, 4, 5, 6, 7, 8, 9].indexOf(h.length) >= 0) {
         return 'hex';
       }
     }
@@ -2198,6 +2051,169 @@ var onChangeFunc = function onChangeFunc(e) {
       }
     });
   });
+  /**
+  	X11 color names
+   	http://www.w3.org/TR/css3-color/#svg-color
+  */
+
+  var w3cx11 = {
+    aliceblue: '#f0f8ff',
+    antiquewhite: '#faebd7',
+    aqua: '#00ffff',
+    aquamarine: '#7fffd4',
+    azure: '#f0ffff',
+    beige: '#f5f5dc',
+    bisque: '#ffe4c4',
+    black: '#000000',
+    blanchedalmond: '#ffebcd',
+    blue: '#0000ff',
+    blueviolet: '#8a2be2',
+    brown: '#a52a2a',
+    burlywood: '#deb887',
+    cadetblue: '#5f9ea0',
+    chartreuse: '#7fff00',
+    chocolate: '#d2691e',
+    coral: '#ff7f50',
+    cornflower: '#6495ed',
+    cornflowerblue: '#6495ed',
+    cornsilk: '#fff8dc',
+    crimson: '#dc143c',
+    cyan: '#00ffff',
+    darkblue: '#00008b',
+    darkcyan: '#008b8b',
+    darkgoldenrod: '#b8860b',
+    darkgray: '#a9a9a9',
+    darkgreen: '#006400',
+    darkgrey: '#a9a9a9',
+    darkkhaki: '#bdb76b',
+    darkmagenta: '#8b008b',
+    darkolivegreen: '#556b2f',
+    darkorange: '#ff8c00',
+    darkorchid: '#9932cc',
+    darkred: '#8b0000',
+    darksalmon: '#e9967a',
+    darkseagreen: '#8fbc8f',
+    darkslateblue: '#483d8b',
+    darkslategray: '#2f4f4f',
+    darkslategrey: '#2f4f4f',
+    darkturquoise: '#00ced1',
+    darkviolet: '#9400d3',
+    deeppink: '#ff1493',
+    deepskyblue: '#00bfff',
+    dimgray: '#696969',
+    dimgrey: '#696969',
+    dodgerblue: '#1e90ff',
+    firebrick: '#b22222',
+    floralwhite: '#fffaf0',
+    forestgreen: '#228b22',
+    fuchsia: '#ff00ff',
+    gainsboro: '#dcdcdc',
+    ghostwhite: '#f8f8ff',
+    gold: '#ffd700',
+    goldenrod: '#daa520',
+    gray: '#808080',
+    green: '#008000',
+    greenyellow: '#adff2f',
+    grey: '#808080',
+    honeydew: '#f0fff0',
+    hotpink: '#ff69b4',
+    indianred: '#cd5c5c',
+    indigo: '#4b0082',
+    ivory: '#fffff0',
+    khaki: '#f0e68c',
+    laserlemon: '#ffff54',
+    lavender: '#e6e6fa',
+    lavenderblush: '#fff0f5',
+    lawngreen: '#7cfc00',
+    lemonchiffon: '#fffacd',
+    lightblue: '#add8e6',
+    lightcoral: '#f08080',
+    lightcyan: '#e0ffff',
+    lightgoldenrod: '#fafad2',
+    lightgoldenrodyellow: '#fafad2',
+    lightgray: '#d3d3d3',
+    lightgreen: '#90ee90',
+    lightgrey: '#d3d3d3',
+    lightpink: '#ffb6c1',
+    lightsalmon: '#ffa07a',
+    lightseagreen: '#20b2aa',
+    lightskyblue: '#87cefa',
+    lightslategray: '#778899',
+    lightslategrey: '#778899',
+    lightsteelblue: '#b0c4de',
+    lightyellow: '#ffffe0',
+    lime: '#00ff00',
+    limegreen: '#32cd32',
+    linen: '#faf0e6',
+    magenta: '#ff00ff',
+    maroon: '#800000',
+    maroon2: '#7f0000',
+    maroon3: '#b03060',
+    mediumaquamarine: '#66cdaa',
+    mediumblue: '#0000cd',
+    mediumorchid: '#ba55d3',
+    mediumpurple: '#9370db',
+    mediumseagreen: '#3cb371',
+    mediumslateblue: '#7b68ee',
+    mediumspringgreen: '#00fa9a',
+    mediumturquoise: '#48d1cc',
+    mediumvioletred: '#c71585',
+    midnightblue: '#191970',
+    mintcream: '#f5fffa',
+    mistyrose: '#ffe4e1',
+    moccasin: '#ffe4b5',
+    navajowhite: '#ffdead',
+    navy: '#000080',
+    oldlace: '#fdf5e6',
+    olive: '#808000',
+    olivedrab: '#6b8e23',
+    orange: '#ffa500',
+    orangered: '#ff4500',
+    orchid: '#da70d6',
+    palegoldenrod: '#eee8aa',
+    palegreen: '#98fb98',
+    paleturquoise: '#afeeee',
+    palevioletred: '#db7093',
+    papayawhip: '#ffefd5',
+    peachpuff: '#ffdab9',
+    peru: '#cd853f',
+    pink: '#ffc0cb',
+    plum: '#dda0dd',
+    powderblue: '#b0e0e6',
+    purple: '#800080',
+    purple2: '#7f007f',
+    purple3: '#a020f0',
+    rebeccapurple: '#663399',
+    red: '#ff0000',
+    rosybrown: '#bc8f8f',
+    royalblue: '#4169e1',
+    saddlebrown: '#8b4513',
+    salmon: '#fa8072',
+    sandybrown: '#f4a460',
+    seagreen: '#2e8b57',
+    seashell: '#fff5ee',
+    sienna: '#a0522d',
+    silver: '#c0c0c0',
+    skyblue: '#87ceeb',
+    slateblue: '#6a5acd',
+    slategray: '#708090',
+    slategrey: '#708090',
+    snow: '#fffafa',
+    springgreen: '#00ff7f',
+    steelblue: '#4682b4',
+    tan: '#d2b48c',
+    teal: '#008080',
+    thistle: '#d8bfd8',
+    tomato: '#ff6347',
+    turquoise: '#40e0d0',
+    violet: '#ee82ee',
+    wheat: '#f5deb3',
+    white: '#ffffff',
+    whitesmoke: '#f5f5f5',
+    yellow: '#ffff00',
+    yellowgreen: '#9acd32'
+  };
+  var w3cx11_1 = w3cx11;
   var type$b = utils.type;
 
   Color_1.prototype.name = function () {
@@ -2826,16 +2842,31 @@ var onChangeFunc = function onChangeFunc(e) {
   var sin$1 = Math.sin;
   var atan2$1 = Math.atan2;
 
-  var average = function (colors, mode) {
+  var average = function (colors, mode, weights) {
     if (mode === void 0) mode = 'lrgb';
-    var l = colors.length; // convert colors to Color objects
+    if (weights === void 0) weights = null;
+    var l = colors.length;
+
+    if (!weights) {
+      weights = Array.from(new Array(l)).map(function () {
+        return 1;
+      });
+    } // normalize weights
+
+
+    var k = l / weights.reduce(function (a, b) {
+      return a + b;
+    });
+    weights.forEach(function (w, i) {
+      weights[i] *= k;
+    }); // convert colors to Color objects
 
     colors = colors.map(function (c) {
       return new Color_1(c);
     });
 
     if (mode === 'lrgb') {
-      return _average_lrgb(colors);
+      return _average_lrgb(colors, weights);
     }
 
     var first = colors.shift();
@@ -2845,31 +2876,31 @@ var onChangeFunc = function onChangeFunc(e) {
     var dy = 0; // initial color
 
     for (var i = 0; i < xyz.length; i++) {
-      xyz[i] = xyz[i] || 0;
-      cnt.push(isNaN(xyz[i]) ? 0 : 1);
+      xyz[i] = (xyz[i] || 0) * weights[0];
+      cnt.push(isNaN(xyz[i]) ? 0 : weights[0]);
 
       if (mode.charAt(i) === 'h' && !isNaN(xyz[i])) {
         var A = xyz[i] / 180 * PI$1;
-        dx += cos$2(A);
-        dy += sin$1(A);
+        dx += cos$2(A) * weights[0];
+        dy += sin$1(A) * weights[0];
       }
     }
 
-    var alpha = first.alpha();
-    colors.forEach(function (c) {
+    var alpha = first.alpha() * weights[0];
+    colors.forEach(function (c, ci) {
       var xyz2 = c.get(mode);
-      alpha += c.alpha();
+      alpha += c.alpha() * weights[ci + 1];
 
       for (var i = 0; i < xyz.length; i++) {
         if (!isNaN(xyz2[i])) {
-          cnt[i]++;
+          cnt[i] += weights[ci + 1];
 
           if (mode.charAt(i) === 'h') {
             var A = xyz2[i] / 180 * PI$1;
-            dx += cos$2(A);
-            dy += sin$1(A);
+            dx += cos$2(A) * weights[ci + 1];
+            dy += sin$1(A) * weights[ci + 1];
           } else {
-            xyz[i] += xyz2[i];
+            xyz[i] += xyz2[i] * weights[ci + 1];
           }
         }
       }
@@ -2897,13 +2928,13 @@ var onChangeFunc = function onChangeFunc(e) {
     return new Color_1(xyz, mode).alpha(alpha > 0.99999 ? 1 : alpha, true);
   };
 
-  var _average_lrgb = function (colors) {
+  var _average_lrgb = function (colors, weights) {
     var l = colors.length;
-    var f = 1 / l;
     var xyz = [0, 0, 0, 0];
 
-    for (var i = 0, list = colors; i < list.length; i += 1) {
-      var col = list[i];
+    for (var i = 0; i < colors.length; i++) {
+      var col = colors[i];
+      var f = weights[i] / l;
       var rgb = col._rgb;
       xyz[0] += pow$4(rgb[0], 2) * f;
       xyz[1] += pow$4(rgb[1], 2) * f;
@@ -2995,7 +3026,11 @@ var onChangeFunc = function onChangeFunc(e) {
       return 0;
     };
 
-    var tmap = function (t) {
+    var tMapLightness = function (t) {
+      return t;
+    };
+
+    var tMapDomain = function (t) {
       return t;
     }; // const classifyValue = function(value) {
     //     let val = value;
@@ -3034,10 +3069,13 @@ var onChangeFunc = function onChangeFunc(e) {
         }
       } else {
         t = val;
-      }
+      } // domain map
+
+
+      t = tMapDomain(t);
 
       if (!bypassMap) {
-        t = tmap(t); // lightness correction
+        t = tMapLightness(t); // lightness correction
       }
 
       if (_gamma !== 1) {
@@ -3142,6 +3180,36 @@ var onChangeFunc = function onChangeFunc(e) {
         for (var c = 0; c < k; c++) {
           _pos.push(c / (k - 1));
         }
+
+        if (domain.length > 2) {
+          // set domain map
+          var tOut = domain.map(function (d, i) {
+            return i / (domain.length - 1);
+          });
+          var tBreaks = domain.map(function (d) {
+            return (d - _min) / (_max - _min);
+          });
+
+          if (!tBreaks.every(function (val, i) {
+            return tOut[i] === val;
+          })) {
+            tMapDomain = function (t) {
+              if (t <= 0 || t >= 1) {
+                return t;
+              }
+
+              var i = 0;
+
+              while (t >= tBreaks[i + 1]) {
+                i++;
+              }
+
+              var f = (t - tBreaks[i]) / (tBreaks[i + 1] - tBreaks[i]);
+              var out = tOut[i] + f * (tOut[i + 1] - tOut[i]);
+              return out;
+            };
+          }
+        }
       }
 
       _domain = [_min, _max];
@@ -3186,7 +3254,7 @@ var onChangeFunc = function onChangeFunc(e) {
       resetCache();
 
       if (_correctLightness) {
-        tmap = function (t) {
+        tMapLightness = function (t) {
           var L0 = getColor(0, true).lab()[0];
           var L1 = getColor(1, true).lab()[0];
           var pol = L0 > L1;
@@ -3219,7 +3287,7 @@ var onChangeFunc = function onChangeFunc(e) {
           return t;
         };
       } else {
-        tmap = function (t) {
+        tMapLightness = function (t) {
           return t;
         };
       }
@@ -4049,6 +4117,7 @@ var onChangeFunc = function onChangeFunc(e) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
 var onInstall = function onInstall() {
   //eslint-disable-line no-unused-vars
   var deleteTrigger = function deleteTrigger(triggerId) {
@@ -4069,7 +4138,7 @@ var onInstall = function onInstall() {
   ScriptApp.newTrigger('onChangeFunc').forSpreadsheet(ss).onChange().create();
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (onInstall);
+/* harmony default export */ __webpack_exports__["default"] = (onInstall);
 
 /***/ }),
 /* 6 */
@@ -4089,15 +4158,15 @@ __webpack_require__.r(__webpack_exports__);
  * Return write arguments.
  */
 
-global.clearBests = _clearBests__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"];
-global.onChangeFunc = _onChangeFunc__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"];
-global.onInstall = _onInstall__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"];
-global.rebuild = _rebuild__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"];
+global.clearBests = _clearBests__WEBPACK_IMPORTED_MODULE_0__["default"];
+global.onChangeFunc = _onChangeFunc__WEBPACK_IMPORTED_MODULE_1__["default"];
+global.onInstall = _onInstall__WEBPACK_IMPORTED_MODULE_2__["default"];
+global.rebuild = _rebuild__WEBPACK_IMPORTED_MODULE_3__["default"];
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(7)))
 
 /***/ }),
 /* 7 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
 var g; // This works in non-strict mode
 

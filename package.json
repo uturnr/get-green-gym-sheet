@@ -12,6 +12,7 @@
   "devDependencies": {
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.2.3",
+    "@google/clasp": "^2.3.0",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",
     "eslint-plugin-googleappsscript": "^1.0.1",
