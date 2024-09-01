@@ -51,7 +51,6 @@ const getRepColorAndBest = (todayWeight, bestWeight, todayReps, bestReps) => {
     && todayReps === ''
   ) {
     color = colors.background;
-    best = todayReps;
   } else if (
     todayWeight > bestWeight
     || (todayWeight === 0 && bestWeight === '')
